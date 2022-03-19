@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "package.json",
-  "author": "M.K. Safi <msafi@msafi.com>",
+  "author": "Hollowverse",
   "license": "UNLICENSED",
   "scripts": {
     "start": "sanity start",
