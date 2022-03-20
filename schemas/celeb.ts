@@ -60,5 +60,21 @@ export const celeb = {
       type: 'array',
       of: [{ type: 'fact' }],
     },
+
+    {
+      title: 'Old content',
+      name: 'oldContent',
+      type: 'text',
+      readOnly: true,
+      hidden: true,
+    },
+
+    {
+      title: 'Wikipedia ID',
+      name: 'wikipediaId',
+      type: 'string',
+      readOnly: true,
+      hidden: true,
+    },
   ],
 };
