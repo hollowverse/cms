@@ -2,7 +2,7 @@ import S from '@sanity/desk-tool/structure-builder';
 
 export default () =>
   S.list()
-    .title('Document types')
+    .title('Content')
     .items([
       ...S.documentTypeListItems().filter((listItem) => {
         if (['orderOfIssues', 'media.tag'].includes(listItem.getId())) {

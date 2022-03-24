@@ -20,5 +20,19 @@ export const tag = {
       type: 'reference',
       to: [{ type: 'issue' }],
     },
+
+    {
+      title: 'Incompatible tags',
+      name: 'incompatibleTags',
+      type: 'array',
+      description:
+        'What tags are incompatible with this tag? For example, atheist and agnostic are incompatible with religious',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'tag' }],
+        },
+      ],
+    },
   ],
 };
