@@ -1,6 +1,5 @@
-import { v4 as uuid } from 'uuid';
-
-const isNotQuote = ({ parent }) => parent?.type !== 'quote';
+const isNotQuoteType = ({ parent }) => parent?.type !== 'quote';
+const isNotFactType = ({ parent }) => parent?.type !== 'fact';
 
 export const fact = {
   title: 'Fact',
@@ -14,16 +13,7 @@ export const fact = {
       title: 'Date',
       name: 'date',
       description: 'When did this fact happen?',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    },
-
-    {
-      title: 'ID',
-      name: 'id',
-      type: 'string',
-      readOnly: true,
-      initialValue: () => uuid(),
+      type: 'date',
       validation: (Rule) => Rule.required(),
     },
 
@@ -31,6 +21,14 @@ export const fact = {
       title: 'Source',
       name: 'source',
       type: 'url',
+      validation: (Rule) => Rule.required(),
+    },
+
+    {
+      title: 'Forum link',
+      name: 'forumLink',
+      type: 'url',
+      description: 'The link to the forum post where the Fact was submitted',
       validation: (Rule) => Rule.required(),
     },
 
@@ -49,13 +47,12 @@ export const fact = {
 
     {
       title: 'Context',
-      description: 'When did they say that?',
+      description: 'In what context did they say that?',
       name: 'context',
       type: 'string',
-      hidden: isNotQuote,
+      hidden: isNotQuoteType,
       validation: (Rule) =>
         Rule.custom((duration, context) => {
-          console.log('context', context);
           return context.parent.type === 'quote' ? Rule.required() : true;
         }),
     },
@@ -64,14 +61,34 @@ export const fact = {
       title: 'Quote',
       name: 'quote',
       type: 'text',
-      hidden: isNotQuote,
+      hidden: isNotQuoteType,
+    },
+
+    {
+      title: 'Content',
+      name: 'content',
+      type: 'text',
+      hidden: isNotFactType,
     },
 
     {
       title: 'Issue',
       name: 'issue',
       type: 'reference',
+      description: 'What is the ideological issue that this FACT is about?',
       to: [{ type: 'issue' }],
+    },
+
+    {
+      title: 'Tags',
+      name: 'tags',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'tag' }],
+        },
+      ],
     },
   ],
 };
