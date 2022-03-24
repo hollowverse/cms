@@ -1,0 +1,37 @@
+{
+  "name": "hollowverse",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "author": "Hollowverse",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "sanity start",
+    "test": "sanity check",
+    "build": "sanity build public -y"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/base": "^2.29.1",
+    "@sanity/core": "^2.28.1",
+    "@sanity/default-layout": "^2.29.1",
+    "@sanity/default-login": "^2.29.1",
+    "@sanity/desk-tool": "^2.29.1",
+    "@sanity/vision": "^2.29.1",
+    "prop-types": "^15.7",
+    "react": "^17.0",
+    "react-dom": "^17.0",
+    "sanity-plugin-media": "^1.4.4",
+    "styled-components": "^5.2.0"
+  },
+  "devDependencies": {
+    "@sanity/cli": "^2.28.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hollowverse/cms.git"
+  }
+}
