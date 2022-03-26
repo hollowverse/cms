@@ -1,6 +1,11 @@
-import { v4 as uuid } from 'uuid';
-
-const isNotQuote = ({ parent }) => parent?.type !== 'quote';
+const isNotQuoteType = ({ parent }) => parent?.type !== 'quote';
+const isNotFactType = ({ parent }) => parent?.type !== 'fact';
+const requiredForType = (type: 'quote' | 'fact') => (Rule) =>
+  Rule.custom((field, context) => {
+    return context.parent.type === type && field === undefined
+      ? 'This field must not be empty'
+      : true;
+  });
 
 export const fact = {
   title: 'Fact',
@@ -11,19 +16,18 @@ export const fact = {
 
   fields: [
     {
-      title: 'Date',
-      name: 'date',
-      description: 'When did this fact happen?',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
+      title: 'Date added',
+      name: 'dateAdded',
+      type: 'datetime',
+      readOnly: true,
+      initialValue: new Date().toISOString(),
     },
 
     {
-      title: 'ID',
-      name: 'id',
-      type: 'string',
-      readOnly: true,
-      initialValue: () => uuid(),
+      title: 'Date',
+      name: 'date',
+      description: 'When did this fact happen?',
+      type: 'date',
       validation: (Rule) => Rule.required(),
     },
 
@@ -31,6 +35,14 @@ export const fact = {
       title: 'Source',
       name: 'source',
       type: 'url',
+      validation: (Rule) => Rule.required(),
+    },
+
+    {
+      title: 'Forum link',
+      name: 'forumLink',
+      type: 'url',
+      description: 'The link to the forum post where the Fact was submitted',
       validation: (Rule) => Rule.required(),
     },
 
@@ -49,29 +61,47 @@ export const fact = {
 
     {
       title: 'Context',
-      description: 'When did they say that?',
+      description: 'In what context did they say that?',
       name: 'context',
       type: 'string',
-      hidden: isNotQuote,
-      validation: (Rule) =>
-        Rule.custom((duration, context) => {
-          console.log('context', context);
-          return context.parent.type === 'quote' ? Rule.required() : true;
-        }),
+      hidden: isNotQuoteType,
+      validation: requiredForType('quote'),
     },
 
     {
       title: 'Quote',
       name: 'quote',
       type: 'text',
-      hidden: isNotQuote,
+      hidden: isNotQuoteType,
+      validation: requiredForType('quote'),
+    },
+
+    {
+      title: 'Content',
+      name: 'content',
+      type: 'text',
+      hidden: isNotFactType,
+      validation: requiredForType('fact'),
     },
 
     {
       title: 'Issue',
       name: 'issue',
       type: 'reference',
+      description: 'What is the ideological issue that this FACT is about?',
       to: [{ type: 'issue' }],
+    },
+
+    {
+      title: 'Tags',
+      name: 'tags',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'tag' }],
+        },
+      ],
     },
   ],
 };
