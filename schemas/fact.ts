@@ -1,5 +1,11 @@
 const isNotQuoteType = ({ parent }) => parent?.type !== 'quote';
 const isNotFactType = ({ parent }) => parent?.type !== 'fact';
+const requiredForType = (type: 'quote' | 'fact') => (Rule) =>
+  Rule.custom((field, context) => {
+    return context.parent.type === type && field === undefined
+      ? 'This field must not be empty'
+      : true;
+  });
 
 export const fact = {
   title: 'Fact',
@@ -9,6 +15,14 @@ export const fact = {
   type: 'object',
 
   fields: [
+    {
+      title: 'Date added',
+      name: 'dateAdded',
+      type: 'datetime',
+      readOnly: true,
+      initialValue: new Date().toISOString(),
+    },
+
     {
       title: 'Date',
       name: 'date',
@@ -51,10 +65,7 @@ export const fact = {
       name: 'context',
       type: 'string',
       hidden: isNotQuoteType,
-      validation: (Rule) =>
-        Rule.custom((duration, context) => {
-          return context.parent.type === 'quote' ? Rule.required() : true;
-        }),
+      validation: requiredForType('quote'),
     },
 
     {
@@ -62,6 +73,7 @@ export const fact = {
       name: 'quote',
       type: 'text',
       hidden: isNotQuoteType,
+      validation: requiredForType('quote'),
     },
 
     {
@@ -69,6 +81,7 @@ export const fact = {
       name: 'content',
       type: 'text',
       hidden: isNotFactType,
+      validation: requiredForType('fact'),
     },
 
     {
