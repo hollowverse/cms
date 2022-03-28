@@ -56,7 +56,7 @@ export const celeb = {
 
     {
       title: 'Facts',
-      name: 'fact',
+      name: 'facts',
       type: 'array',
       of: [{ type: 'fact' }],
     },
