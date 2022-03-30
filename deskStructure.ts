@@ -5,7 +5,7 @@ export default () =>
     .title('Content')
     .items([
       ...S.documentTypeListItems().filter((listItem) => {
-        if (['orderOfIssues', 'media.tag'].includes(listItem.getId())) {
+        if (['orderOfTopics', 'media.tag'].includes(listItem.getId())) {
           return false;
         }
 
@@ -13,11 +13,11 @@ export default () =>
       }),
       S.divider(),
       S.listItem()
-        .title('Order of issues')
+        .title('Order of topics')
         .child(
           S.editor()
-            .title('Order of issues')
-            .schemaType('orderOfIssues')
-            .documentId('orderOfIssues'),
+            .title('Order of topics')
+            .schemaType('orderOfTopics')
+            .documentId('orderOfTopics'),
         ),
     ]);

@@ -14,11 +14,11 @@ export const tag = {
     },
 
     {
-      title: 'Issue',
-      name: 'issue',
-      description: 'What is the ideological issue that this TAG is about?',
+      title: 'Topic',
+      name: 'topic',
+      description: 'What is the ideological topic that this TAG is about?',
       type: 'reference',
-      to: [{ type: 'issue' }],
+      to: [{ type: 'topic' }],
     },
 
     {
