@@ -9,6 +9,7 @@
   },
   "plugins": [
     "@sanity/base",
+    "@sanity/components",
     "@sanity/default-layout",
     "@sanity/default-login",
     "@sanity/desk-tool",
@@ -26,8 +27,20 @@
       "path": "app/structure"
     },
     {
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "app/documentActions"
+    },
+    {
+      "implements": "part:@sanity/base/document-badges/resolver",
+      "path": "app/documentBadges"
+    },
+    {
       "name": "part:@sanity/base/schema",
-      "path": "./schemas/schema"
+      "path": "app/schema"
+    },
+    {
+      "implements": "part:@sanity/base/tool",
+      "path": "app/tools/board"
     }
   ]
 }

@@ -1,23 +1,40 @@
 import S from '@sanity/desk-tool/structure-builder';
+import { BsChatDots, BsFilePerson, BsGear, BsHash } from 'react-icons/bs';
+import { workflowListItems } from './workflow';
+
+const listItems = [
+  { schema: 'celeb', title: 'Celebrities', icon: BsFilePerson },
+  { schema: 'tag', title: 'Tags', icon: BsHash },
+  { schema: 'topic', title: 'Topics', icon: BsChatDots },
+];
+
+const docTypeListItems = listItems.map(({ schema, title, icon }) =>
+  S.documentTypeListItem(schema).icon(icon).title(title),
+);
 
 export default () =>
   S.list()
     .title('Content')
     .items([
-      ...S.documentTypeListItems().filter((listItem) => {
-        if (['orderOfTopics', 'media.tag'].includes(listItem.getId())) {
-          return false;
-        }
-
-        return true;
-      }),
+      ...workflowListItems,
+      S.divider(),
+      ...docTypeListItems,
       S.divider(),
       S.listItem()
-        .title('Order of topics')
+        .title('Settings')
+        .icon(BsGear)
         .child(
-          S.editor()
-            .title('Order of topics')
-            .schemaType('orderOfTopics')
-            .documentId('orderOfTopics'),
+          S.list()
+            .title('Items')
+            .items([
+              S.listItem()
+                .title('Order of topics')
+                .child(
+                  S.editor()
+                    .title('Order of topics')
+                    .schemaType('orderOfTopics')
+                    .documentId('orderOfTopics'),
+                ),
+            ]),
         ),
     ]);

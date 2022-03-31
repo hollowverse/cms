@@ -2,3 +2,4 @@ node_modules
 public
 yarn.lock
 production*.tar.gz
+demo-custom-workflow
