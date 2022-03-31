@@ -1,7 +1,7 @@
-export const issue = {
-  title: 'Issue',
+export const topic = {
+  title: 'Topic',
 
-  name: 'issue',
+  name: 'topic',
 
   type: 'document',
 

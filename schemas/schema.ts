@@ -2,13 +2,13 @@ import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 import { celeb } from './celeb';
 import { fact } from './fact';
-import { issue } from './issue';
+import { topic } from './topic';
 import { tag } from './tag';
-import { orderOfIssues } from './orderOfIssues';
+import { orderOfTopics } from './orderOfTopics';
 // import { wildCard } from './wildCard';
 
 export default createSchema({
   name: 'hollowverse',
 
-  types: schemaTypes.concat([celeb, fact, tag, issue, orderOfIssues]),
+  types: schemaTypes.concat([celeb, fact, tag, topic, orderOfTopics]),
 });

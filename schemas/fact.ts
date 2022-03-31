@@ -85,11 +85,16 @@ export const fact = {
     },
 
     {
-      title: 'Issue',
-      name: 'issue',
-      type: 'reference',
-      description: 'What is the ideological issue that this FACT is about?',
-      to: [{ type: 'issue' }],
+      title: 'Topics',
+      name: 'topics',
+      type: 'array',
+      description: 'What is the ideological topic that this FACT is about?',
+      of: [
+        {
+          type: 'reference',
+          to: [{ type: 'topic' }],
+        },
+      ],
     },
 
     {

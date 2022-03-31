@@ -5,20 +5,31 @@ const client = sanityClient.withConfig({ apiVersion: '2022-03-28' });
 
 const fetchDocuments = () =>
   client.fetch(
-    `*[_type == 'celeb' && defined(fact)][0...100] {_id, _rev, fact}`,
+    `*[_id == 'E14LTzHgErlS4wrVKRvMLd' && _type == 'celeb' && !defined(issue)][0...100] {_id, _rev, facts}`,
   );
 
-const buildPatches = (docs) =>
-  docs.map((doc) => ({
-    id: doc._id,
-    patch: {
-      set: { facts: doc.fact },
-      unset: ['fact'],
-      // this will cause the migration to fail if any of the documents has been
-      // modified since it was fetched.
-      ifRevisionID: doc._rev,
-    },
-  }));
+const buildPatches = (docs) => {
+  const patches = [];
+
+  docs.forEach((doc) => {
+    if (doc.facts) {
+      patches.push({
+        id: doc._id,
+        patch: {
+          set: {
+            facts: doc.facts.map((f) => ({
+              ...f,
+              issue: f.topics[0],
+            })),
+          },
+          ifRevisionID: doc._rev,
+        },
+      });
+    }
+  });
+
+  return patches;
+};
 
 const createTransaction = (patches) =>
   patches.reduce(

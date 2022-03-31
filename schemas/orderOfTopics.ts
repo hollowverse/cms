@@ -1,18 +1,18 @@
-export const orderOfIssues = {
-  title: 'Order of issues',
+export const orderOfTopics = {
+  title: 'Order of topics',
 
-  name: 'orderOfIssues',
+  name: 'orderOfTopics',
 
   type: 'document',
 
   fields: [
     {
-      name: 'issues',
+      name: 'topics',
       type: 'array',
       of: [
         {
           type: 'reference',
-          to: [{ type: 'issue' }],
+          to: [{ type: 'topic' }],
         },
       ],
     },
