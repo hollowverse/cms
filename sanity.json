@@ -22,12 +22,12 @@
   },
   "parts": [
     {
-      "name": "part:@sanity/base/schema",
-      "path": "./schemas/schema"
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "app/structure"
     },
     {
-      "name": "part:@sanity/desk-tool/structure",
-      "path": "./deskStructure.ts"
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema"
     }
   ]
 }
