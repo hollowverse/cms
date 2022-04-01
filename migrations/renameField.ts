@@ -20,4 +20,4 @@ const buildMutations = (docs) => {
   return mutations;
 };
 
-migrate(fetchDocuments, buildMutations, true);
+migrate(fetchDocuments, buildMutations);

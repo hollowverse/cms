@@ -46,6 +46,7 @@ export const migrate = async (
     await transaction.commit();
 
     if (runOnce) {
+      console.log('Ran once!');
       return;
     }
 
