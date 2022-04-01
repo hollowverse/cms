@@ -95,6 +95,7 @@ export const fact = {
           to: [{ type: 'topic' }],
         },
       ],
+      validation: (Rule) => Rule.required(),
     },
 
     {
@@ -107,6 +108,52 @@ export const fact = {
           to: [{ type: 'tag' }],
         },
       ],
+    },
+
+    {
+      title: 'Tags',
+      name: 'newTags',
+      type: 'array',
+      of: [
+        {
+          title: 'Tag',
+
+          type: 'object',
+
+          name: 'tagLink',
+
+          fields: [
+            {
+              title: 'Maybe/possibly',
+              name: 'isLowConfidence',
+              type: 'boolean',
+            },
+            {
+              title: 'Tag',
+              name: 'tag',
+              type: 'reference',
+              to: [{ type: 'tag' }],
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: {
+              tagName: 'tag.tag',
+              isLowConfidence: 'isLowConfidence',
+            },
+            prepare(selection) {
+              const { tagName, isLowConfidence } = selection;
+
+              return {
+                title: `${tagName}${
+                  isLowConfidence ? ' (Low confidence)' : ''
+                }`,
+              };
+            },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required(),
     },
   ],
 };
