@@ -8,7 +8,7 @@ export const tag = {
   fields: [
     {
       title: 'Tag',
-      name: 'tag',
+      name: 'name',
       type: 'string',
       validation: (Rule) => Rule.required(),
     },
@@ -19,20 +19,6 @@ export const tag = {
       description: 'What is the ideological topic that this TAG is about?',
       type: 'reference',
       to: [{ type: 'topic' }],
-    },
-
-    {
-      title: 'Incompatible tags',
-      name: 'incompatibleTags',
-      type: 'array',
-      description:
-        'What tags are incompatible with this tag? For example, atheist and agnostic are incompatible with religious',
-      of: [
-        {
-          type: 'reference',
-          to: [{ type: 'tag' }],
-        },
-      ],
     },
   ],
 };
