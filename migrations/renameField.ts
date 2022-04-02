@@ -1,4 +1,4 @@
-import { client, migrate } from './helpers';
+import { client, run } from './helpers';
 
 const fetchDocuments = () =>
   client.fetch(`*[_type == 'tag' && defined(tag)][0...100] {_id, _rev, tag}`);
@@ -20,4 +20,4 @@ const buildMutations = (docs) => {
   return mutations;
 };
 
-migrate(fetchDocuments, buildMutations);
+run(fetchDocuments, buildMutations);

@@ -104,18 +104,6 @@ export const fact = {
       type: 'array',
       of: [
         {
-          type: 'reference',
-          to: [{ type: 'tag' }],
-        },
-      ],
-    },
-
-    {
-      title: 'Tags',
-      name: 'newTags',
-      type: 'array',
-      of: [
-        {
           title: 'Tag',
 
           type: 'object',
@@ -138,7 +126,7 @@ export const fact = {
           ],
           preview: {
             select: {
-              tagName: 'tag.tag',
+              tagName: 'tag.name',
               isLowConfidence: 'isLowConfidence',
             },
             prepare(selection) {
