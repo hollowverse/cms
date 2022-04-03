@@ -4,7 +4,7 @@ const migration = new Migration();
 
 const fetchDocuments = () =>
   migration.client.fetch(
-    `*[_type == 'celeb' && facts[].tags[] != null && ${migration.notMigrated}][0...100]{_id, _rev, facts}`,
+    `*[_type == 'celeb' && facts[].tags[] != null && ${migration.notMigratedCondition}][0...100]{_id, _rev, facts}`,
   );
 
 const buildMutations = (docs) => {
