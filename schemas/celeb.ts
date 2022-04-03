@@ -59,13 +59,6 @@ export const celeb = {
     },
 
     {
-      title: 'Facts',
-      name: 'facts',
-      type: 'array',
-      of: [{ type: 'fact' }],
-    },
-
-    {
       title: 'Old content',
       name: 'oldContent',
       type: 'text',

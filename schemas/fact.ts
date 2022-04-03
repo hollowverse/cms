@@ -12,9 +12,16 @@ export const fact = {
 
   name: 'fact',
 
-  type: 'object',
+  type: 'document',
 
   fields: [
+    {
+      title: 'Celebrity',
+      name: 'celeb',
+      type: 'reference',
+      to: [{ type: 'celeb' }],
+    },
+
     {
       title: 'Date added',
       name: 'dateAdded',
@@ -109,15 +116,21 @@ export const fact = {
 
   preview: {
     select: {
+      title: 'celeb.name',
       type: 'type',
       content: 'content',
       quote: 'quote',
+      media: 'celeb.picture',
     },
     prepare(selection) {
-      const { type, content, quote } = selection;
+      const { title, type, content, quote, media } = selection;
       const preview = content || quote;
 
-      return { title: `${preview.slice(0, 40)}... (${type})` };
+      return {
+        title: `${title} (${type})`,
+        subtitle: `${preview.slice(0, 40)}...`,
+        media,
+      };
     },
   },
 };

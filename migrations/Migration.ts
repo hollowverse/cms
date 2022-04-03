@@ -1,4 +1,5 @@
 import sanityClient from 'part:@sanity/base/client';
+import { v4 as uuidv4 } from 'uuid';
 
 const migrationMarker = 's83msxz2Migrated';
 
@@ -12,6 +13,10 @@ export class Migration {
 
     return this._notMigratedCondition;
   }
+
+  generateUuid = () => {
+    return uuidv4();
+  };
 
   client = sanityClient.withConfig({
     apiVersion: '2022-03-28',

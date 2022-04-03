@@ -11,5 +11,5 @@ import { tagLink } from './tagLink';
 export default createSchema({
   name: 'hollowverse',
 
-  types: schemaTypes.concat([celeb, fact, tag, topic, orderOfTopics, tagLink]),
+  types: schemaTypes.concat([fact, celeb, tag, topic, orderOfTopics, tagLink]),
 });
