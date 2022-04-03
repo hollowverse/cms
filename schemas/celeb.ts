@@ -10,6 +10,7 @@ export const celeb = {
       title: 'Name',
       name: 'name',
       type: 'string',
+      validation: (Rule) => Rule.required(),
     },
 
     {
@@ -19,12 +20,14 @@ export const celeb = {
       options: {
         hotspot: true,
       },
+      validation: (Rule) => Rule.required(),
     },
 
     {
       title: 'Slug',
       name: 'slug',
       type: 'slug',
+      validation: (Rule) => Rule.required(),
     },
 
     {
@@ -46,6 +49,7 @@ export const celeb = {
         layout: 'radio',
         direction: 'horizontal',
       },
+      validation: (Rule) => Rule.required(),
     },
 
     {

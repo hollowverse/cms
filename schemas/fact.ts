@@ -95,18 +95,29 @@ export const fact = {
           to: [{ type: 'topic' }],
         },
       ],
+      validation: (Rule) => Rule.required(),
     },
 
     {
       title: 'Tags',
       name: 'tags',
       type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [{ type: 'tag' }],
-        },
-      ],
+      of: [{ type: 'tagLink' }],
+      validation: (Rule) => Rule.required(),
     },
   ],
+
+  preview: {
+    select: {
+      type: 'type',
+      content: 'content',
+      quote: 'quote',
+    },
+    prepare(selection) {
+      const { type, content, quote } = selection;
+      const preview = content || quote;
+
+      return { title: `${preview.slice(0, 40)}... (${type})` };
+    },
+  },
 };

@@ -5,10 +5,11 @@ import { fact } from './fact';
 import { topic } from './topic';
 import { tag } from './tag';
 import { orderOfTopics } from './orderOfTopics';
+import { tagLink } from './tagLink';
 // import { wildCard } from './wildCard';
 
 export default createSchema({
   name: 'hollowverse',
 
-  types: schemaTypes.concat([celeb, fact, tag, topic, orderOfTopics]),
+  types: schemaTypes.concat([celeb, fact, tag, topic, orderOfTopics, tagLink]),
 });
