@@ -102,46 +102,22 @@ export const fact = {
       title: 'Tags',
       name: 'tags',
       type: 'array',
-      of: [
-        {
-          title: 'Tag',
-
-          type: 'object',
-
-          name: 'tagLink',
-
-          fields: [
-            {
-              title: 'Maybe/possibly',
-              name: 'isLowConfidence',
-              type: 'boolean',
-            },
-            {
-              title: 'Tag',
-              name: 'tag',
-              type: 'reference',
-              to: [{ type: 'tag' }],
-              validation: (Rule) => Rule.required(),
-            },
-          ],
-          preview: {
-            select: {
-              tagName: 'tag.name',
-              isLowConfidence: 'isLowConfidence',
-            },
-            prepare(selection) {
-              const { tagName, isLowConfidence } = selection;
-
-              return {
-                title: `${tagName}${
-                  isLowConfidence ? ' (Low confidence)' : ''
-                }`,
-              };
-            },
-          },
-        },
-      ],
+      of: [{ type: 'tagLink' }],
       validation: (Rule) => Rule.required(),
     },
   ],
+
+  preview: {
+    select: {
+      type: 'type',
+      content: 'content',
+      quote: 'quote',
+    },
+    prepare(selection) {
+      const { type, content, quote } = selection;
+      const preview = content || quote;
+
+      return { title: `${preview.slice(0, 40)}... (${type})` };
+    },
+  },
 };
