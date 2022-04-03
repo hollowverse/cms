@@ -20,6 +20,7 @@ export const fact = {
       name: 'celeb',
       type: 'reference',
       to: [{ type: 'celeb' }],
+      validation: (Rule) => Rule.required(),
     },
 
     {
