@@ -31,12 +31,6 @@ export const celeb = {
     },
 
     {
-      title: 'Discourse Topic ID',
-      name: 'discourseTopicId',
-      type: 'number',
-    },
-
-    {
       title: 'Pronoun',
       name: 'pronoun',
       type: 'string',
