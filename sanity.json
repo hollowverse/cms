@@ -13,7 +13,8 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "@sanity/vision",
-    "media"
+    "media",
+    "colr"
   ],
   "env": {
     "development": {
@@ -27,7 +28,7 @@
     },
     {
       "name": "part:@sanity/desk-tool/structure",
-      "path": "./deskStructure.ts"
+      "path": "./deskStructure"
     }
   ]
 }

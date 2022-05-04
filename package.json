@@ -9,7 +9,8 @@
   "scripts": {
     "start": "sanity start",
     "test": "sanity check",
-    "build": "sanity build public -y"
+    "build": "sanity build public -y",
+    "tailwind": "npx tailwindcss -i ./plugins/colr/styles.css -o ./plugins/colr/output.css --watch"
   },
   "keywords": [
     "sanity"
@@ -21,11 +22,14 @@
     "@sanity/default-login": "^2.29.2",
     "@sanity/desk-tool": "^2.29.2",
     "@sanity/vision": "^2.29.2",
+    "@types/react-icons": "^3.0.0",
     "prop-types": "^15.7",
     "react": "^17.0",
     "react-dom": "^17.0",
+    "react-icons": "^4.3.1",
     "sanity-plugin-media": "^1.4.4",
     "styled-components": "^5.2.0",
+    "tailwindcss": "^3.0.24",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
