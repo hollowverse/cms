@@ -1,3 +1,6 @@
+import { sanityClient } from '../lib/client';
+import { isString } from 'lodash-es';
+
 export const celeb = {
   title: 'Celebrity',
 
@@ -28,6 +31,32 @@ export const celeb = {
       name: 'slug',
       type: 'slug',
       validation: (Rule) => Rule.required(),
+    },
+
+    {
+      title: 'Knowledge Graph ID',
+      name: 'knowledgeGraphId',
+      type: 'string',
+      validation: (Rule) =>
+        Rule.custom(async (field, context) => {
+          if (!isString(field) || field.length < 1) {
+            return 'This field is required.';
+          }
+
+          const response = await sanityClient.fetch(
+            `*[
+                _type == 'celeb' &&
+                knowledgeGraphId == '${field}' &&
+                name != '${context.parent.name}'
+              ][0]{name}`,
+          );
+
+          if (response && response.name) {
+            return `This field has to be unique. Your value is currently being used in ${response.name}`;
+          }
+
+          return true;
+        }),
     },
 
     {

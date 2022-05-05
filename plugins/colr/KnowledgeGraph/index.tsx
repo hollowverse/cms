@@ -17,7 +17,7 @@ export function KnowledgeGraph() {
           if (e.key === 'Enter') {
             const results = await kgCall(value);
 
-            setResults((await results.json()).itemListElement);
+            setResults(sort(value, (await results.json()).itemListElement));
           }
         }}
         type="text"
@@ -25,7 +25,7 @@ export function KnowledgeGraph() {
       ></input>
 
       {results &&
-        sort(value, results).map((item) => (
+        results.map((item) => (
           <Card key={item.result['@id']} {...item.result} />
         ))}
     </div>
