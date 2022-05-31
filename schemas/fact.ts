@@ -61,7 +61,7 @@ export const fact = {
       options: {
         list: [
           { title: 'Quote', value: 'quote' },
-          { title: 'Fact', value: 'fact' },
+          { title: 'General', value: 'fact' },
         ],
       },
       validation: (Rule) => Rule.required(),
