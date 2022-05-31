@@ -48,7 +48,7 @@ export const celeb = {
                 _type == 'celeb' &&
                 knowledgeGraphId == '${field}' &&
                 _id != '${context.parent._id}' &&
-                !(_id in path('drafts.**'))
+                _id != 'drafts.${context.parent._id}'
               ][0]{name}`,
           );
 
