@@ -1,3 +1,7 @@
+import { isString } from 'lodash-es';
+import { sanityClient } from '../lib/client';
+import { getForumTopicId } from '../lib/getForumTopicId';
+
 const isNotQuoteType = ({ parent }) => parent?.type !== 'quote';
 const isNotFactType = ({ parent }) => parent?.type !== 'fact';
 const requiredForType = (type: 'quote' | 'fact') => (Rule) =>
@@ -51,7 +55,34 @@ export const fact = {
       name: 'forumLink',
       type: 'url',
       description: 'The link to the forum post where the Fact was submitted',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required().custom(async (field, context) => {
+          const topicId = getForumTopicId(field);
+
+          if (!topicId) {
+            return "This doesn't look like a valid forum link";
+          }
+
+          const response = await sanityClient.fetch(
+            `*[
+              _type == 'fact' &&
+              forumLink == $forumLink
+            ][0]{_id}`,
+            { forumLink: field },
+          );
+
+          if (
+            response &&
+            response._id &&
+            context.parent._id &&
+            response._id !== context.parent._id &&
+            `drafts.${response._id}` !== context.parent._id
+          ) {
+            return `This field has to be unique. But you used this value before. Use Search to find out where.`;
+          }
+
+          return true;
+        }),
     },
 
     {

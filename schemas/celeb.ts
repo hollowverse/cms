@@ -38,21 +38,21 @@ export const celeb = {
       name: 'knowledgeGraphId',
       type: 'string',
       validation: (Rule) =>
-        Rule.custom(async (field, context) => {
-          if (!isString(field) || field.length < 1) {
-            return 'This field is required.';
-          }
-
+        Rule.required().custom(async (field, context) => {
           const response = await sanityClient.fetch(
             `*[
                 _type == 'celeb' &&
-                knowledgeGraphId == '${field}'
+                knowledgeGraphId == $knowledgeGraphId
               ][0]{name, _id}`,
+            {
+              knowledgeGraphId: field,
+            },
           );
 
           if (
             response &&
             response.name &&
+            context.parent._id &&
             response._id !== context.parent._id &&
             `drafts.${response._id}` !== context.parent._id
           ) {
