@@ -46,13 +46,16 @@ export const celeb = {
           const response = await sanityClient.fetch(
             `*[
                 _type == 'celeb' &&
-                knowledgeGraphId == '${field}' &&
-                _id != '${context.parent._id}' &&
-                _id != 'drafts.${context.parent._id}'
-              ][0]{name}`,
+                knowledgeGraphId == '${field}'
+              ][0]{name, _id}`,
           );
 
-          if (response && response.name) {
+          if (
+            response &&
+            response.name &&
+            response._id !== context.parent._id &&
+            `drafts.${response._id}` !== context.parent._id
+          ) {
             return `This field has to be unique. Your value is currently being used in ${response.name}`;
           }
 
