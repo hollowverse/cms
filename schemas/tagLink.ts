@@ -7,8 +7,15 @@ export const tagLink = {
 
   fields: [
     {
+      description: 'How confident are we?',
       title: 'Maybe/possibly',
       name: 'isLowConfidence',
+      type: 'boolean',
+    },
+    {
+      description: "This tag is about the celebrity's upbringing or background",
+      title: 'Background',
+      name: 'isBackground',
       type: 'boolean',
     },
     {
