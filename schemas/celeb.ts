@@ -89,8 +89,6 @@ export const celeb = {
       title: 'Old content',
       name: 'oldContent',
       type: 'text',
-      readOnly: true,
-      hidden: true,
     },
 
     {
