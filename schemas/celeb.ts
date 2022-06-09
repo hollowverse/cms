@@ -1,5 +1,25 @@
+import groq from 'groq';
 import { sanityClient } from '../lib/client';
-import { isString } from 'lodash-es';
+
+const isUniqueKnowledgeGraphId = (knowledgeGraphId, context) => {
+  const { document } = context;
+
+  const id = document._id.replace(/^drafts\./, '');
+
+  const params = {
+    draft: `drafts.${id}`,
+    published: id,
+    knowledgeGraphId: knowledgeGraphId,
+  };
+
+  const query = groq`!defined(*[
+    _type == 'celeb' &&
+    !(_id in [$draft, $published]) &&
+    knowledgeGraphId == $knowledgeGraphId
+  ][0]._id)`;
+
+  return sanityClient.fetch(query, params);
+};
 
 export const celeb = {
   title: 'Celebrity',
@@ -38,29 +58,11 @@ export const celeb = {
       name: 'knowledgeGraphId',
       type: 'string',
       validation: (Rule) =>
-        Rule.required().custom(async (field, context) => {
-          const response = await sanityClient.fetch(
-            `*[
-                _type == 'celeb' &&
-                knowledgeGraphId == $knowledgeGraphId
-              ][0]{name, _id}`,
-            {
-              knowledgeGraphId: field,
-            },
-          );
+        Rule.required().custom(async (value, context) => {
+          const isUnique = await isUniqueKnowledgeGraphId(value, context);
 
-          if (!response) {
-            return true;
-          }
-
-          if (
-            response &&
-            response.name &&
-            context.parent._id &&
-            response._id !== context.parent._id &&
-            `drafts.${response._id}` !== context.parent._id
-          ) {
-            return `This field has to be unique. Your value is currently being used in ${response.name}`;
+          if (!isUnique) {
+            return 'Knowledge Graph ID is not unique. Use search to find out where it was used.';
           }
 
           return true;
