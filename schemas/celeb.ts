@@ -49,6 +49,10 @@ export const celeb = {
             },
           );
 
+          if (!response) {
+            return true;
+          }
+
           if (
             response &&
             response.name &&
